@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earth Pulse</title>
+    <meta
+      name="description"
+      content="An interactive Earth visualisation with NASA Earth imagery, weather, seasons, oceans and human activity layers."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <main id="app">
+      <section class="hero">
+        <div class="eyebrow">Earth Pulse</div>
+        <h1>The Living Rythmn of Our Planet</h1>
+      </section>
+
+      <section class="globe-shell">
+        <canvas id="earthCanvas" aria-label="Interactive animated Earth globe"></canvas>
+
+        <div class="panel panel-left">
+          <div class="panel-label">Simulation clock</div>
+          <div id="earthClock" class="panel-value">--</div>
+          <div id="seasonText" class="panel-small">Seasonal geometry: --</div>
+
+          <label class="speed-control" for="speedSlider">
+            <span>Speed of change</span>
+            <strong id="speedLabel">60×</strong>
+          </label>
+          <input id="speedSlider" type="range" min="0" max="7" step="1" value="2" />
+
+          <div class="button-row">
+            <button id="resetTime" class="small-button" type="button">Reset to now</button>
+            <button id="pauseTime" class="small-button" type="button">Pause</button>
+          </div>
+        </div>
+
+        <div class="panel panel-right">
+          <div class="panel-label">Data layers</div>
+
+          <label class="toggle">
+            <input id="layerClouds" type="checkbox" checked />
+            <span>Clouds from recent true-colour imagery</span>
+          </label>
+
+          <label class="toggle">
+            <input id="layerPrecip" type="checkbox" checked />
+            <span>Precipitation from IMERG</span>
+          </label>
+
+          <label class="toggle">
+            <input id="layerSst" type="checkbox" checked />
+            <span>Sea-surface temperature overlay</span>
+          </label>
+
+          <label class="toggle">
+            <input id="layerCurrents" type="checkbox" checked />
+            <span>Ocean-flow particles</span>
+          </label>
+
+          <label class="toggle">
+            <input id="layerHuman" type="checkbox" checked />
+            <span>Night lights and activity pulses</span>
+          </label>
+
+          <label class="toggle">
+            <input id="layerOrbit" type="checkbox" checked />
+            <span>Season and orbital view</span>
+          </label>
+        </div>
+
+        <div class="data-strip">
+          <div class="panel-label">Live data status</div>
+          <ul id="dataStatus"></ul>
+        </div>
+      </section>
+
+      <section class="layer-grid">
+        <article>
+          <span>V3</span>
+          <h2>Clouds and weather feel</h2>
+          <p>
+            Uses recent NASA GIBS true-colour imagery as a cloud source and
+            IMERG precipitation imagery for active rain/snow areas.
+          </p>
+        </article>
+
+        <article>
+          <span>V4</span>
+          <h2>Seasons and orbital view</h2>
+          <p>
+            Computes solar direction, axial tilt and day-of-year geometry in the
+            browser so users can speed up the seasonal cycle.
+          </p>
+        </article>
+
+        <article>
+          <span>V5</span>
+          <h2>Ocean currents</h2>
+          <p>
+            Adds GHRSST MUR sea-surface temperature from NASA GIBS and animated
+            current particles informed by major circulation pathways.
+          </p>
+        </article>
+
+        <article>
+          <span>V5</span>
+          <h2>Human activity</h2>
+          <p>
+            Blends NASA Black Marble on the night side and adds subtle pulses
+            over major activity hubs for a living human layer.
+          </p>
+        </article>
+      </section>
+
+      <section class="credits">
+        <h2>Data source credits</h2>
+        <p>
+          Base Earth: NASA Blue Marble Next Generation via NASA Global Imagery
+          Browse Services (GIBS). Night-side human lights: NASA VIIRS Black
+          Marble via GIBS. Clouds/weather feel: recent VIIRS/MODIS corrected
+          reflectance imagery via GIBS. Precipitation: NASA GPM IMERG
+          precipitation-rate imagery via Worldview/GIBS. Ocean temperature:
+          GHRSST MUR sea-surface temperature via GIBS. Ocean-current movement:
+          lightweight visual streamlines informed by NASA ECCO and OSCAR
+          ocean-current datasets; this browser-only MVP does not download heavy
+          NetCDF current-vector files.
+        </p>
+        <p class="credits-small">
+          The app fetches visual layers at page load. If a near-real-time layer
+          is unavailable for the selected recent timestamp, the app falls back
+          to the next available visual layer or keeps the procedural visual.
+        </p>
+      </section>
+    </main>
+
+    <noscript>
+      <div class="noscript">This app needs JavaScript enabled to render the interactive Earth.</div>
+    </noscript>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
