@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earth Pulse — NASA Texture Edition</title>
+    <meta
+      name="description"
+      content="A calming interactive Earth visualisation using NASA Blue Marble and Black Marble imagery."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- Three.js is loaded from CDN so this repo can deploy as a static site on Vercel. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <main id="app">
+      <section class="hero">
+        <div class="eyebrow">EARTH PULSE</div>
+        <h1>The Living Rhythm of Our Planet</h1>
+        <p>
+          A quiet interactive globe using NASA Blue Marble for the day-side Earth
+          and NASA Black Marble for the night-side human light pattern.
+        </p>
+      </section>
+
+      <section class="globe-shell">
+        <canvas id="earthCanvas" aria-label="Interactive animated Earth globe"></canvas>
+
+        <div class="panel panel-left">
+          <div class="panel-label">Current rhythm</div>
+          <div id="rhythmTitle" class="panel-value">Real-time rotation</div>
+          <div id="rhythmDescription" class="panel-small">
+            Earth rotates gently while the sunlight line reveals morning, dusk and night.
+          </div>
+        </div>
+
+        <div class="panel panel-right">
+          <div class="panel-label">Earth clock</div>
+          <div id="earthClock" class="panel-value">--:-- UTC</div>
+          <div id="seasonText" class="panel-small">Seasonal tilt: --</div>
+          <div id="dataStatus" class="panel-small data-status">Loading NASA imagery…</div>
+        </div>
+
+        <div class="controls">
+          <button class="control active" data-mode="realtime">Real time</button>
+          <button class="control" data-mode="day">Fast day</button>
+          <button class="control" data-mode="season">Season breath</button>
+          <button class="control" data-mode="calm">Calm drift</button>
+        </div>
+      </section>
+
+      <section class="story-grid">
+        <article>
+          <span>01</span>
+          <h2>NASA Blue Marble</h2>
+          <p>
+            The day-side globe uses NASA’s Blue Marble Next Generation imagery,
+            fetched from NASA GIBS at runtime.
+          </p>
+        </article>
+
+        <article>
+          <span>02</span>
+          <h2>NASA Black Marble</h2>
+          <p>
+            The night side blends in VIIRS Black Marble imagery, revealing city
+            lights, coastlines and human activity after sunset.
+          </p>
+        </article>
+
+        <article>
+          <span>03</span>
+          <h2>Day-night terminator</h2>
+          <p>
+            The moving sunlight boundary is computed in the browser from UTC
+            time and an approximate solar direction.
+          </p>
+        </article>
+
+        <article>
+          <span>04</span>
+          <h2>Atmosphere in motion</h2>
+          <p>
+            A transparent procedural cloud shell keeps the Earth feeling alive
+            while preserving the clarity of the NASA base imagery.
+          </p>
+        </article>
+      </section>
+
+      <section class="credits">
+        <h2>Data credits</h2>
+        <p>
+          Day texture: NASA Blue Marble Next Generation via NASA Global Imagery
+          Browse Services (GIBS). Night texture: NASA Black Marble / VIIRS Black
+          Marble via NASA Worldview and GIBS. This app fetches the imagery from
+          NASA’s public GIBS WMS endpoint when the page loads.
+        </p>
+        <p class="credits-small">
+          Blue Marble and Black Marble are satellite-derived Earth imagery
+          products. They are used here for educational visualisation.
+        </p>
+      </section>
+    </main>
+
+    <noscript>
+      <div class="noscript">
+        This app needs JavaScript enabled to render the interactive Earth.
+      </div>
+    </noscript>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
